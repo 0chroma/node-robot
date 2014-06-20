@@ -8,6 +8,7 @@
     "test": "./node_modules/mocha/bin/mocha $(find test -name '*.js')"
   },
   "dependencies": {
+    "serialport": "^1.4.0",
     "underscore": "^1.6.0"
   },
   "engines": {

@@ -36,8 +36,6 @@ var r = new Robot(/* ... */);
 r.run(function(){
   r.on("sensor", function(type, oldValue, newValue){
     if(type != "color") return;
-
-    //do data prcoessing
     if(/* out of field */){
       r.commands.back(2000).then(function(){
         r.repeatedSequence([
