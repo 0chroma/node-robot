@@ -5,6 +5,6 @@ suite("Scheduler", function(){
     var s = new Scheduler();
     s.scheduleTimeout(function(){
       done();
-    }, 100)
+    }, 30);
   })
 });
