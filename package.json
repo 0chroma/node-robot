@@ -5,7 +5,7 @@
   "repository": "https://github.com/0chroma/node-robot.git",
   "version": "0.0.1",
   "scripts": {
-    "test": "echo 'Be sure to set SERIAL_PORT environment variable before running npm test!\n'; ./node_modules/mocha/bin/mocha $(find test -name '*.js')"
+    "test": "echo -e '\\E[47;31m'\"\\033[1mNOTE: If SERIAL_PORT env variable isn't set, some tests will be pending\\033[0m\"; ./node_modules/mocha/bin/mocha $(find test -name '*.js')"
   },
   "dependencies": {
     "serialport": "^1.4.0",
