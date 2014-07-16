@@ -11,9 +11,7 @@ module.exports = {
   },
   mockMotorAdapter: function(cb){
     return {
-      setMotors: function(a,b,c,d,done){
-        return cb(done);
-      }
+      setMotors: cb
     }
   }
 }
