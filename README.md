@@ -143,8 +143,8 @@ scheduler.stop(); //won't interrupt the currently running task
 scheduler.started == false //true
 ```
 
-Sensors
-=======
+EV3 Sensors API
+===============
 
 All sensor classes have the following API:
 
