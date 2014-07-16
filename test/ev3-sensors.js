@@ -37,4 +37,16 @@ suite("Ev3 sensors", function(){
       })
     });
   }))
+
+  test("read loop should work", runIfSp(function(done){
+    var a = new Adapter(process.env.SERIAL_PORT);
+    a.once("ready", function(){
+      var s = new sensors.TouchSensor(a, 1);
+      s.once("ready", function(value){
+        console.log("value from read loop: "+value);
+        assert(s.value);
+        done();
+      })
+    });
+  }))
 });
