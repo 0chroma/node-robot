@@ -25,4 +25,19 @@ suite("Scheduler", function(){
 
     s.start();
   })
+
+  test("should emit an empty event when finished", function(done){
+    var s = new Scheduler(true);
+    var called = false;
+    s.sequence(function(){
+      called = true;
+    }).schedule();
+
+    s.on("empty", function(){
+      assert(called);
+      done();
+    })
+
+    s.start();
+  })
 });
