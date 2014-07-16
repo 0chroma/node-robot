@@ -7,7 +7,17 @@ suite("Adapter", function(){
     a.once("ready", function(){
       a.readSensor(1 /*port 1*/, 0, 10/*touch sensor*/, function(err, data){
         console.log("raw readsensor data:" + data);
-        done();
+        a.close(done);
+      })
+    })
+  }));
+
+  test("should be able to set motors", runIfSp(function(done){
+    var a = new Adapter(process.env.SERIAL_PORT);
+    a.once("ready", function(){
+      a.setMotors(100, 100, 100, 100, function(err){
+        if(err) throw err;
+        a.close(done);
       })
     })
   }))
