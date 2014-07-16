@@ -39,5 +39,26 @@ suite("Scheduler", function(){
     })
 
     s.start();
+  });
+
+  test("should run a sequence after a delay", function(done){
+    var s = new Scheduler(true);
+    s.sequence(function(){
+      
+    }).after(30, function(){
+      throw new Error("this should never get called!");
+    }).schedule();
+
+    var canceled = false;
+    s.sequence(function(){}).onCancel(function(){
+      canceled = true;
+    }).schedule();
+
+    s.start();
+
+    s.interrupt(function(){
+      assert(canceled);
+      done();
+    })
   })
 });
