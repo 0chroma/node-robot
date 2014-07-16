@@ -146,7 +146,46 @@ scheduler.started == false //true
 Sensors
 =======
 
-TODO
+All sensor classes have the following API:
+
+```javascript
+var robot = require("node-robot");
+var adapter = new robot.ev3.Adapter("/dev/tty.EV3-SerialPort")
+//make a new TouchSensor on input port 1
+var sensor = new robot.ev3.sensors.TouchSensor(adapter, 1);
+
+sensor.value //value of the sensor, for touch sensors this is true or false
+```
+
+The following sensors are available:
+
+```javascript
+var sensors = require("node-robot").ev3.sensors;
+sensors.TouchSensor(adapter, port)
+
+// RINTENSITY and AINTENSITY also supported
+sensors.ColorSensor(adapter, port, sensors.ColorSensor.modes.COLOR)
+//values for this sensor can be compared using the ColorSensor.colors constants, eg:
+colorSensor.value == ColorSensor.colors.BLACK
+//Avail colors: NULL, BLACK, BLUE, GREEN, YELLOW, RED, WHITE, BROWN
+
+sensors.InfraSensor(adapter, port)
+
+```
+
+Turning off the read loop
+-------------------------
+
+By default the sensors API will continually read the sensor reading from the EV3. If you don't want this behavior, you can turn this off by passing in `true` as the fourth argument of any of the sensors:
+
+```javascript
+var sensor = new robot.ev3.TouchSensor(adapter, 1, null, true); //set up manual reading
+
+sensor.read(function(value){
+  // ...
+})
+```
+
 
 EV3 Motors API
 ==============
