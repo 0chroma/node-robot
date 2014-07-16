@@ -8,12 +8,12 @@ This started as a rewrite of [ev3-Nodejs-bluetooth-Api](https://github.com/david
 The library consists of two parts: a collection of classes for interacting with ev3, and a task scheduler.
 
 Installation
-============
+------------
 
 To install, just run `npm install node-robot`.
 
 Examples
-========
+--------
 
 See the `examples/` directory for some examples of programs
 
@@ -38,26 +38,36 @@ scheduler.on("empty", function(){
 })
 
 var seq = scheduler.sequence(function(){
+
   mySynchronousFunction();
+
 }).after(2000, function(done){ //called after 2s
+
   myAsyncFunction(function(){
     done();
   })
-}).when(function(){ return foo > bar }, function(){ //called when foo > bar
+
+}).wait(function(){
+
+  return foo > bar;
+
+}).do(function(){ //called once foo > bar
+
   doSomethingElse();
+
 })
 
 seq.schedule();
 ```
 
-`when()` and conditional checking
+`wait()` and conditional checking
 ---------------------------------
 
-note that the `when()` function will call the condition function every 20 ms by default to see if it's true. You can change this interval like so:
+note that the `wait()` function will call the condition function every 20 ms by default to see if it's true. You can change this interval like so:
 
 ```javascript
-//call every 500 ms instead
-.when(function(){ return foo > bar }, function(){ /* ... */ }, 500); 
+//call every 5 ms instead
+.wait(function(){ return foo > bar }, 5); 
 ```
 
 Interrupting sequences
@@ -68,7 +78,7 @@ A common situation is when you get an on("change") event from a sensor or someth
 ```javascript
 scheduler.interrupt(function(){
   //called once all currently running tasks finish
-  //you can schedule another sequence here
+  //you can schedule another sequence here if you want
 })
 ```
 
@@ -85,6 +95,7 @@ scheduler.on("sequenceFinished", function(seq){
 scheduler.on("empty", function(){
   //called whenever the scheduler has nothing to do
 })
+```
 
 Sequence events
 ---------------
@@ -131,3 +142,13 @@ scheduler.started == true //true
 scheduler.stop(); //won't interrupt the currently running task
 scheduler.started == false //true
 ```
+
+Sensors
+=======
+
+
+
+Motors
+======
+
+TODO

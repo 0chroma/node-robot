@@ -9,17 +9,17 @@ suite("Sequence", function(){
       ran.first = true;
     }).after(10, function(){
       ran.second = true;
-    }).when("true == true", function(){
+    }).wait("true == true").do(function(){
       if(ran.first && ran.second)
         done();
       else
         throw Error("first two steps didn't run!");
     }).run();
   });
-  test("interrupts when() correctly", function(done){
+  test("interrupts wait() correctly", function(done){
     var s = new Sequence();
     var interrupted = false;
-    s.when("false == true", function(){
+    s.wait("false == true").do(function(){
       throw new Error("this should never run");
     }).run();
 
@@ -55,13 +55,15 @@ suite("Sequence", function(){
     }, 30);
   });
 
-  test("when() gets run when a condition is fufilled", function(done){
+  test("wait() finishes when a condition is fufilled", function(done){
     var s = new Sequence();
     var ran = false;
     var cond = false;
-    s.when(function(){ return cond == true }, function(){
-      ran = true;
+    s.wait(function(){
+      return cond == true
     }, 5).do(function(){
+      ran = true;
+    }).do(function(){
       assert(ran);
       assert(cond);
       done();

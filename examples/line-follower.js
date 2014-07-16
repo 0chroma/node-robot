@@ -16,10 +16,10 @@ var move = function(shouldMoveLeft){
     else
       motors.set("C,D", 100); //move right wheels
       
-  }).when(function(){
-    //once we moved off the line
+  }).wait(function(){
+    //wait until we moved off the line
     return colorSensor.value != ColorSensor.colors.BLACK;
-  }, function(){
+  }).do(function(){
 
     motors.set("*", 0); //stop all motors
     move(!shouldMoveLeft); //call move with the opposite direction
