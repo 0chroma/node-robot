@@ -20,6 +20,9 @@ suite("Sequence", function(){
     var ran = false;
     s.once("false == true", function(){
       ran = true;
+      //this way if this ever gets called by stray code
+      //we'll get a done() called twice error
+      done();
     }).run();
 
     s.on("completed", function(interrupted){
@@ -37,6 +40,9 @@ suite("Sequence", function(){
     var ran = false;
     s.after(1000, function(){
       ran = true;
+      //this way if this ever gets called by stray code
+      //we'll get a done() called twice error
+      done();
     }).run();
 
     s.on("completed", function(interrupted){
