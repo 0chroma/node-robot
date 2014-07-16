@@ -1,4 +1,5 @@
 var Sequence = require("../lib/sequence");
+var assert = require('assert');
 
 suite("Sequence", function(){
   test("runs a sequence correctly", function(done){
@@ -55,4 +56,21 @@ suite("Sequence", function(){
       s.interrupt()
     }, 30);
   });
+
+  test("once() gets run once a condition is fufilled", function(done){
+    var s = new Sequence();
+    var ran = false;
+    var cond = false;
+    s.once(function(){ return cond == true }, function(){
+      ran = true;
+    }, 5).do(function(){
+      assert(ran);
+      assert(cond);
+      done();
+    }).run();
+
+    setTimeout(function(){
+      cond = true;
+    }, 30)
+  })
 });
