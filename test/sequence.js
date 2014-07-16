@@ -71,4 +71,20 @@ suite("Sequence", function(){
       cond = true;
     }, 30)
   })
+
+  test("sequence not interrupted when user-defined function is running", function(done){
+    var s = new Sequence();
+    var ran = false;
+    s.do(function(done){
+      setTimeout(function(){
+        ran = true;
+        done();
+      }, 35);
+    }).run();
+
+    s.interrupt(function(){
+      assert(ran);
+      done();
+    })
+  })
 });
