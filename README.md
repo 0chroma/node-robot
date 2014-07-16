@@ -77,7 +77,7 @@ A common situation is when you get an on("change") event from a sensor or someth
 
 ```javascript
 scheduler.interrupt(function(){
-  //called once all currently running tasks finish
+  //called once the currently running task in the sequence finishes up
   //you can schedule another sequence here if you want
 })
 ```
@@ -146,9 +146,41 @@ scheduler.started == false //true
 Sensors
 =======
 
-
-
-Motors
-======
-
 TODO
+
+EV3 Motors API
+==============
+
+Get access to the motors API like so:
+
+```javascript
+var robot = require("node-robot");
+var adapter = new robot.ev3.Adapter("/dev/tty.EV3-SerialPort")
+var motors = new robot.ev3.Motors(adapter);
+```
+
+`get()`
+-------
+Get the state of the motors like so:
+
+```javascript
+motors.get("A") // -> 0
+motors.get("A,B") // -> [0, 100]
+motors.get("*") // -> {A: 0, B: 100, C: 100, D: 0}
+```
+
+`set()`
+-------
+Set the state of the motors like so:
+
+```javascript
+motors.set("A", 100);
+motors.set("A, B", 100);
+motors.set("*", 100, function(){ /* optional callback */ });
+motors.set({
+  "A,B": 100,
+  "C,D": -100
+}, function(){
+  //optional callback for once the command has been sent
+});
+```

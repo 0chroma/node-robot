@@ -17,8 +17,10 @@ var move = function(shouldMoveLeft){
       motors.set("C,D", 100); //move right wheels
       
   }).wait(function(){
+
     //wait until we moved off the line
     return colorSensor.value != ColorSensor.colors.BLACK;
+    
   }).do(function(){
 
     motors.set("*", 0); //stop all motors
