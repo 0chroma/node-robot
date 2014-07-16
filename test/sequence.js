@@ -24,7 +24,6 @@ suite("Sequence", function(){
     }).run();
 
     s.on("completed", function(i){
-      console.log(i);
       interrupted = i;
     })
 
