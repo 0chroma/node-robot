@@ -1,13 +1,27 @@
+var robot = require("node-robot");
+var scheduler = new robot.Scheduler();
+var ColorSensor = robot.ev3.sensors.ColorSensor;
+
+var a = new robot.ev3.Adapter("/dev/tty.EV3-SerialPort")
+var motors = new robot.ev3.Motors(a);
+var colorSensor = new ColorSensor(a, 1, ColorSensor.modes.COLOR);
+
+//this assumes we're following a black line on a white background
+
 var move = function(shouldMoveLeft){
   scheduler.sequence(function(){
       
     if(shouldMoveLeft)
-      robot.motors.set(100, 0, 0, 0); //move left wheel
+      motors.set("A,B", 100); //move left wheels
     else
-      robot.motors.set(0, 0, 0, 100); //move right wheel
+      motors.set("C,D", 100); //move right wheels
       
-  }).once(function(){ robot.sensors.light.value == LightSensor.WHITE}, function(){ //once we moved off the line
-  
+  }).once(function(){
+    //once we moved off the line
+    return colorSensor.value != ColorSensor.colors.BLACK;
+  }, function(){
+
+    motors.set("*", 0); //stop all motors
     move(!shouldMoveLeft); //call move with the opposite direction
     
   }).schedule();
