@@ -146,6 +146,8 @@ scheduler.started == false //true
 EV3 Sensors API
 ===============
 
+The EV3 sensors API gives you a nice API for getting sensor data and regularly reads the sensor's data for you using a read loop. The frequency that the sensor data is fetched is continuous; as soon as we get a result back, we ask for a new value from the sensor.
+
 All sensor classes have the following API:
 
 ```javascript
@@ -158,6 +160,14 @@ sensor.value //the last immediate value read from the sensor, for touch sensors 
 sensor.averageValue //a running average of the sensor value using the last few readings (10 by default)
 
 sensor.averageValueSampleSet = 20; //use this to change the number of readings used to calculate averageValue
+
+sensor.on("change", function(newValue, oldValue){
+  //called whenever sensor.averageValue changes between read loop calls
+})
+
+sensor.on("data", function(value){
+  //called whenever the read loop gets data from the sensor
+})
 ```
 
 The following sensors are available:
@@ -191,6 +201,8 @@ sensor.read(function(value, averageValue){
 ```
 
 Note that averageValue will only be caluclated with the values the library fetches for each individual read() call, so it won't be very useful unless you're calling read() at regular intervals in your code. You can still change the number of samples used to calculate the average by setting `sensor.averageValueSampleSet`.
+
+Also note that things like sensor.value, sensor.averageValue, and the sensor.on("change") event will not be available with the read loop disabled.
 
 
 EV3 Motors API
