@@ -156,6 +156,11 @@ var adapter = new robot.ev3.Adapter("/dev/tty.EV3-SerialPort")
 //make a new TouchSensor on input port 1
 var sensor = new robot.ev3.sensors.TouchSensor(adapter, 1);
 
+sensor.on("ready", function(){
+  //called after the first value is read off of the sensor
+  //basically the same thing as sensor.once("data", function(){ ... })
+});
+
 sensor.value //the last immediate value read from the sensor, for touch sensors this is true or false
 sensor.averageValue //a running average of the sensor value using the last few readings (10 by default)
 
