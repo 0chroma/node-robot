@@ -3,7 +3,7 @@
   "author": "0chroma <will@0chroma.org>",
   "description": "An adapter-agnostic framework for controlling robots with node. Has adapters for EV3.",
   "repository": "https://github.com/0chroma/node-robot.git",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": {
     "test": "echo -e '\\E[47;31m'\"\\033[1mNOTE: If SERIAL_PORT env variable isn't set, some tests will be pending\\033[0m\"; ./node_modules/mocha/bin/mocha $(find test -name '*.js')"
   },
