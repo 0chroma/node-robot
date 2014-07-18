@@ -1,7 +1,7 @@
 node-robot
 ==========
 
-A node.js framework for programming robots using Node.js. There are adapters for communicating with the Lego Mindstorms EV3 bricks included, however, you can use any communication adapter you'd like (eg johnny-five).
+A node.js framework for programming robots using Node.js. There are adapters for communicating with the Lego Mindstorms EV3 bricks over Bluetooth included, however, you can use any communication adapter you'd like (eg johnny-five).
 
 This started as a rewrite of [ev3-Nodejs-bluetooth-Api](https://github.com/davidyang/ev3-Nodejs-bluetooth-Api).
 
