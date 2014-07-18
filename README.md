@@ -163,10 +163,11 @@ sensor.on("ready", function(){
 
 
 //note that these values will initially be set to null before on("ready") or on("data") fire
-sensor.value //the last immediate value read from the sensor, for touch sensors this is true or false
-sensor.averageValue //a running average of the sensor value using the last few readings (10 by default)
+sensor.value //the last immediate value read from the sensor
+sensor.averageValue //a running average of the sensor value using past readings
 
-sensor.averageValueSampleSet = 20; //use this to change the number of readings used to calculate averageValue
+//use this to change the number of readings used to calculate averageValue (default: 10)
+sensor.averageValueSampleSet = 20;
 
 sensor.on("change", function(newValue, oldValue){
   //called whenever sensor.averageValue changes between read loop calls
@@ -182,6 +183,7 @@ The following sensors are available:
 ```javascript
 var sensors = require("node-robot").ev3.sensors;
 sensors.TouchSensor(adapter, port)
+touchSensor.value == true //will be a boolean
 
 // RINTENSITY and AINTENSITY also supported
 sensors.ColorSensor(adapter, port, sensors.ColorSensor.modes.COLOR)
@@ -190,6 +192,7 @@ colorSensor.value == ColorSensor.colors.BLACK
 //Avail colors: NULL, BLACK, BLUE, GREEN, YELLOW, RED, WHITE, BROWN
 
 sensors.InfraSensor(adapter, port)
+touchSensor.value > 0 //will be an integer
 
 ```
 
