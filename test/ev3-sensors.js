@@ -9,8 +9,9 @@ suite("Ev3 sensors", function(){
     var a = new Adapter(process.env.SERIAL_PORT);
     a.once("ready", function(){
       var s = new sensors.TouchSensor(a, 1);
-      s.read(function(err, val){
+      s.read(function(err, val, averageValue){
         console.log("touch value: "+val);
+        console.log("average value: "+averageValue);
         done();
       })
     });
@@ -20,8 +21,9 @@ suite("Ev3 sensors", function(){
     var a = new Adapter(process.env.SERIAL_PORT);
     a.once("ready", function(){
       var s = new sensors.ColorSensor(a, 2, sensors.ColorSensor.modes.RINTENSITY);
-      s.read(function(err, val){
+      s.read(function(err, val, averageValue){
         console.log("color value: "+val);
+        console.log("average value: "+averageValue);
         done();
       })
     });
@@ -31,8 +33,9 @@ suite("Ev3 sensors", function(){
     var a = new Adapter(process.env.SERIAL_PORT);
     a.once("ready", function(){
       var s = new sensors.InfraSensor(a, 3);
-      s.read(function(err, val){
+      s.read(function(err, val, averageValue){
         console.log("ir value: "+val);
+        console.log("average value: "+averageValue);
         done();
       })
     });
@@ -44,7 +47,8 @@ suite("Ev3 sensors", function(){
       var s = new sensors.TouchSensor(a, 1);
       s.once("ready", function(value){
         console.log("value from read loop: "+value);
-        assert(s.value);
+        assert(s.value != null);
+        assert(s.averageValue != null)
         done();
       })
     });
