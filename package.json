@@ -1,7 +1,7 @@
 {
   "name": "node-robot",
   "author": "0chroma <will@0chroma.org>",
-  "description": "A framework for controlling robots with node",
+  "description": "An adapter-agnostic framework for controlling robots with node. Has adapters for EV3.",
   "repository": "https://github.com/0chroma/node-robot.git",
   "version": "0.0.3",
   "scripts": {
