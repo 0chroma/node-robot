@@ -154,7 +154,10 @@ var adapter = new robot.ev3.Adapter("/dev/tty.EV3-SerialPort")
 //make a new TouchSensor on input port 1
 var sensor = new robot.ev3.sensors.TouchSensor(adapter, 1);
 
-sensor.value //value of the sensor, for touch sensors this is true or false
+sensor.value //the last immediate value read from the sensor, for touch sensors this is true or false
+sensor.averageValue //a running average of the sensor value using the last few readings (10 by default)
+
+sensor.averageValueSampleSet = 20; //use this to change the number of readings used to calculate averageValue
 ```
 
 The following sensors are available:
@@ -173,18 +176,21 @@ sensors.InfraSensor(adapter, port)
 
 ```
 
-Turning off the read loop
--------------------------
+Turning off the read loop (not recommended)
+-------------------------------------------
 
 By default the sensors API will continually read the sensor reading from the EV3. If you don't want this behavior, you can turn this off by passing in `true` as the fourth argument of any of the sensors:
 
 ```javascript
 var sensor = new robot.ev3.TouchSensor(adapter, 1, null, true); //set up manual reading
 
-sensor.read(function(value){
+//manually read a sensor
+sensor.read(function(value, averageValue){
   // ...
 })
 ```
+
+Note that averageValue will only be caluclated with the values the library fetches for each individual read() call, so it won't be very useful unless you're calling read() at regular intervals in your code. You can still change the number of samples used to calculate the average by setting `sensor.averageValueSampleSet`.
 
 
 EV3 Motors API
