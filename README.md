@@ -161,6 +161,8 @@ sensor.on("ready", function(){
   //basically the same thing as sensor.once("data", function(){ ... })
 });
 
+
+//note that these values will initially be set to null before on("ready") or on("data") fire
 sensor.value //the last immediate value read from the sensor, for touch sensors this is true or false
 sensor.averageValue //a running average of the sensor value using the last few readings (10 by default)
 
