@@ -1,9 +1,21 @@
 {
   "name": "node-robot",
   "author": "0chroma <will@0chroma.org>",
-  "description": "An adapter-agnostic framework for controlling robots with node. Has adapters for controlling EV3 bricks over Bluetooth.",
-  "repository": "https://github.com/0chroma/node-robot.git",
-  "version": "0.0.5",
+  "homepage": "https://github.com/0chroma/node-robot",
+  "description": "Adapter-agnostic framework for programming robots with node. Schedule interruptable sequences of tasks with ease! Has adapters for EV3.",
+  "keywords": ["robot", "bluetooth", "serialport", "EV3", "schedule", "task", "sequence", "sequencing"],
+  "licenses": [{
+    "type": "MIT",
+    "url": "https://raw.github.com/0chroma/node-robot/master/LICENSE"
+  }],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/0chroma/node-robot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/0chroma/node-robot/issues"
+  },
+  "version": "0.0.6",
   "scripts": {
     "test": "echo -e '\\E[47;31m'\"\\033[1mNOTE: If SERIAL_PORT env variable isn't set, some tests will be pending\\033[0m\"; ./node_modules/mocha/bin/mocha $(find test -name '*.js')"
   },
