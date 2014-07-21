@@ -47,7 +47,7 @@ var seq = scheduler.sequence(function(){
     done();
   })
 
-}).wait(function(){
+}).wait(function(){ //run after last task's done() is called
 
   return foo > bar;
 
