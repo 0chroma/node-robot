@@ -58,6 +58,12 @@ var seq = scheduler.sequence(function(){
 })
 
 seq.schedule();
+
+mySensor.on("change", function(value){
+  scheduler.interrupt(function(){
+    scheduleSomeReactionSequence(value);
+  });
+});
 ```
 
 `wait()` and conditional checking
