@@ -209,7 +209,7 @@ By default the sensors API will continually read the sensor reading from the EV3
 var sensor = new robot.ev3.TouchSensor(adapter, 1, null, true); //set up manual reading
 
 //manually read a sensor
-sensor.read(function(value, averageValue){
+sensor.read(function(err, value, averageValue){
   // ...
 })
 ```
