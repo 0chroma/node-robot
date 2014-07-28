@@ -37,17 +37,18 @@ scheduler.on("empty", function(){
 
 var seq = scheduler.sequence(function(){
 
-  mySynchronousFunction();
+  mySynchronousFunction(); //if we don't accept a done() argument,
+                           //the next step is called after the function returns
 
 }).after(2000, function(done){ //called after 2s
 
   myAsyncFunction(function(){
-    done();
+    done(); //this task in the sequence won't complete until done() is called
   })
 
-}).wait(function(){ //run after last task's done() is called
+}).wait(function(){
 
-  return foo > bar;
+  return foo > bar; //called over and over until we return true
 
 }).do(function(){ //called once foo > bar
 
