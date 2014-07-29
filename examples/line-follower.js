@@ -6,7 +6,7 @@ var adapter = new robot.ev3.Adapter("/dev/rfcomm0");
 var motors = new robot.ev3.Motors(adapter);
 var colorSensor = new ColorSensor(adapter, 1, ColorSensor.modes.COLOR);
 
-//this assumes we're following a black line on a white background
+//this assumes we're following a blue line on a white background
 
 var move = function(){
   scheduler.sequence(function(){
