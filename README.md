@@ -110,7 +110,11 @@ You can also listen for events on sequences:
 ```javascript
 var sequence = scheduler.sequence(function(){ /* ... */ });
 
-sequence.on("completed", function(interrupted){
+sequence.on("start", function(){
+  //called when sequence is run
+})
+
+sequence.on("complete", function(interrupted){
   //called when sequence finishes.
   //interrupted will be true if it was interrupted during execution
 })
@@ -133,6 +137,8 @@ sequence.on("step", function(index, step){
   //step will contain the step object itself
 });
 ```
+
+Note that these don't return `this` since they're standard `EventEmitter` events. In other words, you can't do `on("event").schedule();`
 
 
 Starting and stopping the scheduler

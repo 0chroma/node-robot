@@ -41,16 +41,16 @@ suite("Scheduler", function(){
     s.start();
   });
 
-  test("should run a sequence after a delay", function(done){
+  test("should cancel a sequence on immediate interrupt", function(done){
     var s = new Scheduler(true);
+    var canceled = false;
+    var run = false;
+
     s.sequence(function(){
-      
+      run = true;
     }).after(30, function(){
       throw new Error("this should never get called!");
-    }).schedule();
-
-    var canceled = false;
-    s.sequence(function(){}).onCancel(function(){
+    }).onCancel(function(){
       canceled = true;
     }).schedule();
 
@@ -58,7 +58,37 @@ suite("Scheduler", function(){
 
     s.interrupt(function(){
       assert(canceled);
+      assert(!run);
       done();
     })
+  });
+
+  test("should cancel a later sequence while interrupted during a sequence", function(done){
+    var s = new Scheduler(true);
+    var canceled = false;
+    var run = false;
+
+    s.sequence(function(){
+      run = true;
+    }).after(30, function(){
+      throw new Error("this should never get called!");
+    }).schedule();
+
+    s.sequence(function(){
+      throw new Error("this should never get called!");
+    }).onCancel(function(){
+      canceled=true;
+    }).schedule();
+
+    s.start();
+
+    //run after the first sequence kicks off
+    setImmediate(function(){
+      s.interrupt(function(){
+        assert(canceled);
+        assert(run);
+        done();
+      });
+    });
   })
 });

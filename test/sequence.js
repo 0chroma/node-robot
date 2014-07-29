@@ -23,7 +23,7 @@ suite("Sequence", function(){
       throw new Error("this should never run");
     }).run();
 
-    s.on("completed", function(i){
+    s.on("complete", function(i){
       interrupted = i;
     })
 
@@ -44,7 +44,7 @@ suite("Sequence", function(){
       done();
     }).run();
 
-    s.on("completed", function(interrupted){
+    s.on("complete", function(interrupted){
       if(ran) throw new Error("condition ran!");
       if(!interrupted) throw new Error("wasn't interrupted!");
       done();
