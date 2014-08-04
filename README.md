@@ -154,6 +154,40 @@ scheduler.stop(); //won't interrupt the currently running task
 scheduler.started == false //true
 ```
 
+EV3 Adapter & Connecting to the EV3 Brick
+=========================================
+
+The adapter is what the other APIs use to communicate with the EV3 brick. It maintains the serial port connection and does some other protocol-related tasks.
+
+It takes a single argument: the path to the tty device on your machine. On OSX, this device should be created automatically (look in `/dev/` for the relevant device, it should follow the format `/dev/tty.<brick name>-SerialPort`)
+
+On Linux, you need to pair/connect to the device using whichever bluetooth GUI/command line tool you prefer, then running the following:
+
+```bash
+sudo rfcomm bind /dev/rfcomm0 <device address>
+sudo chmod /dev/rfcomm0 777 #allow access to the serial port for all users, should be ok for 99% of cases
+
+#when you're done and want to remove the device, run this:
+sudo rfcomm release /dev/rfcomm0
+```
+
+The device address will look like something like `00:16:53:3F:92:CC` and you can copy and paste it from whichever tool you used to pair with the brick.
+
+Note that after pairing & setting up the serial port, the device will appear as disconnected. The computer only connects to the brick when the serial port is opened, so this is completely normal.
+
+
+Usage is straightforward, just make sure you don't do anything with it until the `on("ready")` event is fired:
+
+```javascript
+var robot = require("node-robot");
+var adapter = new robot.ev3.Adapter("/dev/rfcomm0")
+
+adapter.on("ready", function(){
+  //initiate your application here
+});
+```
+
+
 EV3 Sensors API
 ===============
 
@@ -163,7 +197,7 @@ All sensor classes have the following API:
 
 ```javascript
 var robot = require("node-robot");
-var adapter = new robot.ev3.Adapter("/dev/tty.EV3-SerialPort")
+var adapter = new robot.ev3.Adapter("/dev/rfcomm0")
 //make a new TouchSensor on input port 1
 var sensor = new robot.ev3.sensors.TouchSensor(adapter, 1);
 
@@ -193,17 +227,17 @@ The following sensors are available:
 
 ```javascript
 var sensors = require("node-robot").ev3.sensors;
-sensors.TouchSensor(adapter, port)
+var touchSensor = sensors.TouchSensor(adapter, port)
 touchSensor.value == true //will be a boolean
 
 // RINTENSITY and AINTENSITY also supported
-sensors.ColorSensor(adapter, port, sensors.ColorSensor.modes.COLOR)
+var colorSensor = sensors.ColorSensor(adapter, port, sensors.ColorSensor.modes.COLOR)
 //values for this sensor can be compared using the ColorSensor.colors constants, eg:
 colorSensor.value == ColorSensor.colors.BLACK
 //Avail colors: NULL, BLACK, BLUE, GREEN, YELLOW, RED, WHITE, BROWN
 
-sensors.InfraSensor(adapter, port)
-touchSensor.value > 0 //will be an integer
+var infraSensor = new sensors.InfraSensor(adapter, port)
+infraSensor.value > 0 //will be an integer
 
 ```
 
@@ -233,7 +267,7 @@ Get access to the motors API like so:
 
 ```javascript
 var robot = require("node-robot");
-var adapter = new robot.ev3.Adapter("/dev/tty.EV3-SerialPort")
+var adapter = new robot.ev3.Adapter("/dev/rfcomm0")
 var motors = new robot.ev3.Motors(adapter);
 ```
 
