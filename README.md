@@ -230,7 +230,8 @@ var sensors = require("node-robot").ev3.sensors;
 var touchSensor = sensors.TouchSensor(adapter, port)
 touchSensor.value == true //will be a boolean
 
-// RINTENSITY and AINTENSITY also supported
+// RINTENSITY and AINTENSITY (Reflected Light Intensity and Ambient Light Intensity modes) also supported
+// those modes will return a number instead of a color
 var colorSensor = sensors.ColorSensor(adapter, port, sensors.ColorSensor.modes.COLOR)
 //values for this sensor can be compared using the ColorSensor.colors constants, eg:
 colorSensor.value == ColorSensor.colors.BLACK
