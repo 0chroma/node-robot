@@ -159,7 +159,11 @@ EV3 Adapter & Connecting to the EV3 Brick
 
 The adapter is what the other APIs use to communicate with the EV3 brick. It maintains the serial port connection and does some other protocol-related tasks.
 
-It takes a single argument: the path to the tty device on your machine. On OSX, this device should be created automatically (look in `/dev/` for the relevant device, it should follow the format `/dev/tty.<brick name>-SerialPort`)
+It takes a single argument: the path to the tty device on your machine.
+
+I haven't tested this method, but on Windows you can navigate to Device Manager and open the list of Ports. There you can right-click on the device you wish to assign a port number. After right-clicking, click Properties. There should be a tab called Port Settings. In here, you should find a setting to assign a port number. You can pass that port number (eg COM1) to the adapter.
+
+On OSX, this device should be created automatically (look in `/dev/` for the relevant device, it should follow the format `/dev/tty.<brick name>-SerialPort`)
 
 On Linux, you need to pair/connect to the device using whichever bluetooth GUI/command line tool you prefer, then running the following:
 
