@@ -20,9 +20,11 @@ Scheduler
 
 The library comes with a full featured task scheduler. The general pattern is as follows:
 
-- Schedule a sequences of tasks
-- Reschedule a sequences once the scheduler is empty
+- Schedule a sequence of tasks
+  - Each sequence you define will have a specialized task, eg a "move robot in this pattern" or "position and close a grasping arm"
+- Reschedule sequences once the scheduler is empty
 - Interrupt scheduled tasks when sensors are triggered
+  - You can schedule a different sequence during an interrupt, eg a "back up and turn" sequence when you run into a walls)
 
 Doing this is relatively straightforward and can be done using any robot communication library you want:
 
