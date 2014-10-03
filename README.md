@@ -20,8 +20,9 @@ Scheduler
 
 The library comes with a full featured task scheduler. The general pattern is as follows:
 
-- Schedule a sequence of tasks
+- Define the sequences in your program
   - Each sequence you define will have a specialized task, eg a "move robot in this pattern" or "position and close a grasping arm"
+- Schedule the initial sequence(s) to get your robot's program running
 - Reschedule sequences once the scheduler is empty
 - Interrupt scheduled tasks when sensors are triggered
   - You can schedule a different sequence during an interrupt, eg a "back up and turn" sequence when you run into a walls)
